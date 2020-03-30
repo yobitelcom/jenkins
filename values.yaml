@@ -1,5 +1,6 @@
 master:
   # Used for label app.kubernetes.io/component
+  registry: 354808810060.dkr.ecr.eu-central-1.amazonaws.com/6602fd24-b9fb-4cc2-9b5f-1c31e44af669/cg-551650995
   componentName: "jenkins-master"
   image: "jenkins/jenkins"
   tag: "2.222.1-slim"
