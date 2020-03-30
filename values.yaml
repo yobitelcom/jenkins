@@ -8,6 +8,7 @@ master:
   # Optionally configure lifetime for master-container
   lifecycle:
   numExecutors: 0
+  
   customJenkinsLabels: []
   # configAutoReload requires UseSecurity is set to true:
   useSecurity: true
@@ -22,6 +23,7 @@ master:
        <denyAnonymousReadAccess>true</denyAnonymousReadAccess>
      </authorizationStrategy>
   hostNetworking: false
+  
   adminUser: "admin"
 
   rollingUpdate: 
