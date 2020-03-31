@@ -57,10 +57,10 @@ master:
   # adminSshKey: <defaults to auto-generated>
   # If CasC auto-reload is enabled, an SSH (RSA) keypair is needed.  Can either provide your own, or leave unconfigured to allow a random key to be auto-generated.
   # If you supply your own, it is recommended that the values file that contains your key not be committed to source control in an unencrypted format
-  rollingUpdate: {}
+  rollingUpdate: 
   # Ignored if Persistence is enabled
-  # maxSurge: 1
-  # maxUnavailable: 25%
+    maxSurge: 1
+    maxUnavailable: 25%
   resources:
     requests:
       cpu: "50m"
@@ -224,8 +224,8 @@ master:
       # jcasc changes will cause a reboot and will only be applied at the subsequent start-up.  Auto-reload uses the Jenkins CLI
       # over SSH to reapply config when changes to the configScripts are detected.  The admin user (or account you specify in
       # master.adminUser) will have a random SSH private key (RSA 4096) assigned unless you specify adminSshKey.  This will be saved to a k8s secret.
-      enabled: false
-      image: shadwell/k8s-sidecar:0.0.2
+      enabled: true
+      image: kiwigrid/k8s-sidecar:0.1.20
       imagePullPolicy: IfNotPresent
       resources: {}
         #   limits:
@@ -439,19 +439,19 @@ persistence:
   accessMode: "ReadWriteOnce"
   size: "8Gi"
   volumes:
-  #  - name: nothing
-  #    emptyDir: {}
+     - name: nothing
+       emptyDir: {}
   mounts:
-  #  - mountPath: /var/nothing
-  #    name: nothing
-  #    readOnly: true
+     - mountPath: /var/nothing
+       name: nothing
+       readOnly: true
 
 networkPolicy:
   # Enable creation of NetworkPolicy resources.
-  enabled: false
+  enabled: true
   # For Kubernetes v1.4, v1.5 and v1.6, use 'extensions/v1beta1'
   # For Kubernetes v1.7, use 'networking.k8s.io/v1'
-  apiVersion: networking.k8s.io/v1
+  apiVersion: extensions/v1beta1
 
 ## Install Default RBAC roles and bindings
 rbac:
@@ -476,7 +476,7 @@ serviceAccountAgent:
 backup:
   # Backup must use RBAC
   # So by enabling backup you are enabling RBAC specific for backup
-  enabled: false
+  enabled: true
   # Used for label app.kubernetes.io/component
   componentName: "backup"
   # Schedule to run jobs. Must be in cron time format
